@@ -1,0 +1,58 @@
+-- 1)
+
+update catalogs set name = 'empty' where name = '' ; 
+-- если поле name уникально, то будет ошибка
+
+-- 2)
+
+drop database if exists media;
+create database media;
+use media;
+
+drop table if exists photos;
+create table photos(
+	id serial primary key, 
+	name VARCHAR(15) unique,
+	`path` VARCHAR(100),
+	description TINYTEXT,
+	index (name)
+);
+drop table if exists videos;
+create table videos(
+	id serial primary key, 
+	name VARCHAR(15) unique,
+	`path` VARCHAR(100),
+	description TINYTEXT,
+	index (name)
+);
+drop table if exists audios;
+create table audios(
+	id serial primary key, 
+	name VARCHAR(15) unique,
+	`path` VARCHAR(100),
+	description TINYTEXT,
+	index (name)
+);
+-- не пон€л немного как организовать поиск по ключевым словам (по идее должна быть еще одна таблица - keywords, котора€ будет ссылатьс€ на все остальные)
+
+-- -----------------
+
+-- 3)
+
+drop database if exists shop;
+create database shop;
+use shop;
+
+drop table if exists catalogs;
+create table catalogs(
+	id serial primary key, 
+	name VARCHAR(15) unique
+);
+
+-- 4) последний слад в презентации
+
+insert into shop (name) values ('ѕроцессоры');
+insert into shop (name) values ('ћат.платы');
+insert into shop (name) values ('¬идеокарты');
+
+insert into cat (name) from catalogs (name)
